@@ -1,0 +1,4 @@
+rootProject.name = 'learning-coconut'
+include 'learning-coconut-log4j'
+include 'learning-coconut-logback'
+
