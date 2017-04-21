@@ -9,6 +9,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut-logback/learning-coconut-logback.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut-logback/learning-coconut-logback.iml" group="learning-coconut-logback" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut-logback/learning-coconut-logback_main.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut-logback/learning-coconut-logback_main.iml" group="learning-coconut-logback" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut-logback/learning-coconut-logback_test.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut-logback/learning-coconut-logback_test.iml" group="learning-coconut-logback" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut-springLog4j2/learning-coconut-springLog4j2.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut-springLog4j2/learning-coconut-springLog4j2.iml" group="learning-coconut-springLog4j2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut-springLog4j2/learning-coconut-springLog4j2_main.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut-springLog4j2/learning-coconut-springLog4j2_main.iml" group="learning-coconut-springLog4j2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut-springLog4j2/learning-coconut-springLog4j2_test.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut-springLog4j2/learning-coconut-springLog4j2_test.iml" group="learning-coconut-springLog4j2" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut_main.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut_main.iml" group="learning-coconut" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/learning-coconut_test.iml" filepath="$PROJECT_DIR$/.idea/modules/learning-coconut_test.iml" group="learning-coconut" />
     </modules>

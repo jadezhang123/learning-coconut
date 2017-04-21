@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false" scan="true">
+<configuration debug="false" scan="true" >
+    <shutdownHook/>
 
     <!--控制台输出-->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
@@ -8,44 +9,65 @@
         </encoder>
     </appender>
 
-    <!--info文件日志输出-->
-    <appender name="info_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/info_log.log</file>
+    <!--DEBUG（只有DEBUG）文件日志输出-->
+    <appender name="debug_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/debug_log.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>logs/info_log.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <fileNamePattern>logs/debug.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
-            <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>
         </encoder>
-
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
-    <!--error文件日志输出-->
-    <appender name="error_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/error_log.log</file>
+    <!--WARN（包括ERROR）文件日志输出-->
+    <appender name="warn_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/warn_log.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
             <fileNamePattern>logs/error_log.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- keep 30 days' worth of history capped at 3GB total size -->
             <maxHistory>30</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
-    <!-- 日志级别 -->
+    <appender name="SPECLOGGER-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/mubs-spec.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
     <root level="INFO">
-        <appender-ref ref="stdout" />
-        <appender-ref ref="info_log" />
-        <appender-ref ref="error_log" />
+        <appender-ref ref="stdout"/>
     </root>
 
-    <logger name="own.jadezhang.learning" level="DEBUG"></logger>
+    <logger name="SPECLOGGER" level="DEBUG">
+        <appender-ref ref="SPECLOGGER-APPENDER" additivity="false"/>
+    </logger>
+
+    <!-- 这里平时的level为WARN，跟踪问题时才设置为DEBUG -->
+    <logger name="own.jadezhang.learning" level="DEBUG">
+        <appender-ref ref="debug_log" />
+        <appender-ref ref="warn_log" />
+    </logger>
 
 </configuration>
+
