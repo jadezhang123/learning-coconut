@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/9/3
  */
 @Service
-public class BizService {
+public class NotifyService {
     public void run(String msg){
         System.out.println("error log occur" + msg);
     }

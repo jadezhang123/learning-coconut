@@ -24,8 +24,7 @@
             <!-- 最多备份x个 -->
             <DefaultRolloverStrategy fileIndex="max" max="20" />
             <Filters>
-                <ErrorNotifyFilter onMatch="ACCEPT"
-                                 onMismatch="DENY" />
+                <ErrorLogFilter onMatch="ACCEPT" onMismatch="DENY" />
             </Filters>
         </RollingRandomAccessFile>
     </Appenders>

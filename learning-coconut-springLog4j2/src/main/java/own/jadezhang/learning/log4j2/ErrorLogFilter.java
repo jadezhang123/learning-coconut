@@ -16,17 +16,17 @@ import org.apache.logging.log4j.message.Message;
  * @author Zhang Junwei
  * @date 2018/9/3
  */
-@Plugin(name = "ErrorNotifyFilter", category = Node.CATEGORY, elementType = Filter.ELEMENT_TYPE, printObject = true)
-public class ErrorNotifyFilter extends AbstractFilter{
+@Plugin(name = "ErrorLogFilter", category = Node.CATEGORY, elementType = Filter.ELEMENT_TYPE, printObject = true)
+public class ErrorLogFilter extends AbstractFilter{
     private final Level level = Level.valueOf("ERROR");
 
-    public ErrorNotifyFilter(final Result onMatch, final Result onMismatch) {
+    public ErrorLogFilter(final Result onMatch, final Result onMismatch) {
         super(onMatch, onMismatch);
     }
 
     @Override
     public Result filter(Logger logger, Level testLevel, Marker marker, String msg, Object... params) {
-        return this.filter(testLevel, msg.toString());
+        return this.filter(testLevel, msg);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ErrorNotifyFilter extends AbstractFilter{
 
     private Result filter(final Level testLevel, String msg) {
         if (testLevel.isMoreSpecificThan(this.level)) {
-            BizService bizService = (BizService) SpringContextUtils.getBean("bizService");
+            NotifyService bizService = (NotifyService) SpringContextUtils.getBean("bizService");
             bizService.run(msg);
             return onMatch;
         }
@@ -54,12 +54,12 @@ public class ErrorNotifyFilter extends AbstractFilter{
     }
 
     @PluginFactory
-    public static ErrorNotifyFilter createFilter(
+    public static ErrorLogFilter createFilter(
             @PluginAttribute("onMatch") final Result match,
             @PluginAttribute("onMismatch") final Result mismatch) {
         final Result onMatch = match == null ? Result.NEUTRAL : match;
         final Result onMismatch = mismatch == null ? Result.DENY : mismatch;
         System.out.println("create filter");
-        return new ErrorNotifyFilter(onMatch, onMismatch);
+        return new ErrorLogFilter(onMatch, onMismatch);
     }
 }
