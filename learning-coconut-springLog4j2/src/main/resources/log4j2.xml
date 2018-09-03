@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="WARN" packages="own.jadezhang.learning.log4j2">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         </Console>
+        <!-- 打印错误日志，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
+        <RollingRandomAccessFile name="Error"
+                                 fileName="error.log"
+                                 filePattern="error.$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log"
+                                 append="false">
+            <PatternLayout>
+                <Pattern>%X %d{yyyy-MM-dd HH:mm:ss SSS} [%p] [%t] %c.%M(%L) | %m%n
+                </Pattern>
+            </PatternLayout>
+
+            <Policies>
+                <!-- 定义log文件封存的周期 -->
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true" />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+
+            <!-- 最多备份x个 -->
+            <DefaultRolloverStrategy fileIndex="max" max="20" />
+            <Filters>
+                <ErrorNotifyFilter onMatch="ACCEPT"
+                                 onMismatch="DENY" />
+            </Filters>
+        </RollingRandomAccessFile>
     </Appenders>
+
     <Loggers>
         <Root level="error">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="Error"/>
         </Root>
         <Logger name="org.springframework" level="info"/>
         <Logger name="own.jadezhang.learning" level="debug"/>

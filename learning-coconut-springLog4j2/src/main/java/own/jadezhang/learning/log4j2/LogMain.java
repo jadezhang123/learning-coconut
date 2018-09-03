@@ -17,6 +17,7 @@ public class LogMain {
     public void logMsg(String msg){
         logger.debug("this is a test for log4j2 with debug msg:" + msg);
         logger.info("this is a test for log4j2 with info msg:" + msg);
+        logger.error("this is a test for log4j2 with error msg:" + msg);
     }
 
 
